@@ -1,0 +1,86 @@
+export const users = [
+  {
+    id: '5f8aecf07986896640b1b252',
+    firstname: 'Nadia',
+    lastname: 'Diaz',
+    birthdate: 'Sat Apr 22 2006 01:28:26 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0888adce70eb54bd9',
+    firstname: 'Chris',
+    lastname: 'Battle',
+    birthdate: 'Sat Jul 14 2012 04:22:08 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf04beb92b09bd89676',
+    firstname: 'Katina',
+    lastname: 'Santos',
+    birthdate: 'Tue Jun 06 1972 16:52:27 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf018685b4a339bb01d',
+    firstname: 'Martha',
+    lastname: 'Mckinney',
+    birthdate: 'Mon Dec 15 1975 01:06:59 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0eb8f9096db9f80dd',
+    firstname: 'Vilma',
+    lastname: 'Potter',
+    birthdate: 'Sun Dec 29 1991 01:05:56 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf01d7706d54a977a62',
+    firstname: 'Marcie',
+    lastname: 'Petersen',
+    birthdate: 'Fri Feb 10 1978 05:46:42 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0b000e0cefb8515ff',
+    firstname: 'Rhodes',
+    lastname: 'Cochran',
+    birthdate: 'Wed Mar 01 2006 04:30:11 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0419b7d846104c4f0',
+    firstname: 'Nita',
+    lastname: 'Curry',
+    birthdate: 'Fri Aug 25 2017 17:05:24 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0f029a5cc50a5aae4',
+    firstname: 'Vincent',
+    lastname: 'Dean',
+    birthdate: 'Fri Oct 16 1987 10:04:55 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf022bc2bd1d528a083',
+    firstname: 'James',
+    lastname: 'Mcclain',
+    birthdate: 'Sun Feb 28 1988 19:59:49 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf0b52101a070181b4d',
+    firstname: 'Lisa',
+    lastname: 'Martinez',
+    birthdate: 'Thu Dec 19 1991 20:45:09 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf078e2aacec6fba2e1',
+    firstname: 'Carrillo',
+    lastname: 'Bailey',
+    birthdate: 'Sun Jun 24 2012 23:07:27 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf023e80d090e9fc7d8',
+    firstname: 'Iva',
+    lastname: 'Nolan',
+    birthdate: 'Thu Jul 23 1981 14:57:41 GMT+0000 (UTC)',
+  },
+  {
+    id: '5f8aecf07060d4d53ad96aec',
+    firstname: 'Luna',
+    lastname: 'Rhodes',
+    birthdate: 'Thu Jan 03 2008 17:19:46 GMT+0000 (UTC)',
+  },
+]

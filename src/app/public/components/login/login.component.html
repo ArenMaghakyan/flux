@@ -1,0 +1,59 @@
+<form class="form-signin" [formGroup]="form">
+  <h1 class="h3 mb-3 font-weight-normal align-center">
+    Sign in
+  </h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <label for="inputEmail" class="sr-only">
+        Email address
+      </label>
+      <input type="email"
+             class="form-control"
+             [ngClass]='{"validation-error": (form.get("email").errors || loginIsInvalid) && (form.get("email").touched || submitted)}'
+             id="inputEmail"
+             formControlName="email"
+             placeholder="Email address"
+             required
+             autofocus>
+      <div class="messages text-danger">
+        <div *ngIf='form.get("email").errors && (form.get("email").touched || submitted)'>
+          <div *ngIf='form.get("email").errors.requiredValid'>Email is Required</div>
+          <div *ngIf='form.get("email").errors.emailValid'>Incorrect Email</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <label for="inputPassword"
+             class="sr-only">
+        Password
+      </label>
+
+      <input type="password"
+             id="inputPassword"
+             [ngClass]='{"validation-error": (form.get("password").errors || loginIsInvalid) && (form.get("password").touched || submitted)}'
+             formControlName="password"
+             class="form-control"
+             placeholder="Password"
+             required>
+
+      <div class="messages text-danger m-ot-10">
+        <div *ngIf='form.get("password").errors && (form.get("password").touched || submitted)'>
+          <div *ngIf='form.get("password").errors.requiredValid'>Password is Required</div>
+        </div>
+        <div *ngIf='form.errors && form.errors.wrongCredentials'>
+          <div>Email or Password is Incorrect</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block"
+          (click)="onSubmit()">
+    Sign in
+  </button>
+</form>

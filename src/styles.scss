@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+/* ========================= color variables ========================= */
+
+$red: #d61b02;
+
+/* ========================= font-size ========================= */
+
+$font-size-base: 16px;
+$font-size-xs: 12px;
+$font-size-small: 14px;
+$font-size-medium: 18px;
+$font-size-large: 20px;
+$font-size-xlarge: 40px;
+$font-size-xxlarge: 48px;
+
+/* ========================= styles ========================= */
+
+.validation-error:not(.ng-select) {
+  border: 1px solid $red !important;
+  box-shadow: $red !important;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+.messages {
+  min-height: 20px;
+  text-align: right;
+  margin-top: -5px;
+  font-size: $font-size-small;
+  &.text-danger {
+    color: $red !important;
+  }
+}

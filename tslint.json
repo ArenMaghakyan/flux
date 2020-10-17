@@ -3,7 +3,7 @@
     "node_modules/codelyzer"
   ],
   "extends": [
-    "tslint:latest",
+    "tslint:recommended",
     "rxjs-tslint-rules"
   ],
   "rules": {
