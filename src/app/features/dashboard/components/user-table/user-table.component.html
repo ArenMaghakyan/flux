@@ -1,4 +1,10 @@
 <div class="container">
+
+  <div class="button-wrapper">
+    <button class="btn btn-danger" [disabled]="selected.length === 0"
+            (click)="onDelete()">Remove Selected {{selected?.length || 0}}</button>
+  </div>
+
   <ngx-datatable class="material"
                  #myTable
                  [rows]="userList"
@@ -11,7 +17,6 @@
                  [selected]="selected"
                  [selectionType]="'checkbox'"
                  [selectAllRowsOnPage]="false"
-                 (activate)="onActivate($event)"
                  (select)="onSelect($event)">
 
     <ngx-datatable-column [width]="30"
@@ -91,10 +96,47 @@
 
   </ngx-datatable>
 
+  <div class="form-wrapper">
+    <form [formGroup]="form" class="border p-2 mt-4 col-sm-5">
+
+      <div class="row">
+        <div class="form-group col-sm-10">
+          <label>Firstname</label>
+          <input type="text" formControlName="firstname" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-10">
+          <label>Lastname</label>
+          <input type="text" formControlName="lastname" class="form-control">
+        </div>
+      </div>
 
 
+      <div class="row">
+        <div class="form-group col-sm-10">
+          <label>Date</label>
+          <input
+              placeholder="DD/MM/YYYY"
+              type="text"
+              [autoClose]="true"
+              class="form-control"
+              formControlName="birthdate"
+              (click)="d.toggle()"
+              ngbDatepicker
+              #d="ngbDatepicker">
+        </div>
+
+      </div>
 
 
-  <form></form>
+      <footer>
+        <button type="button"  [disabled]="form.invalid" class="btn btn-success m-2" (click)="addToTable()">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+      </footer>
+    </form>
+  </div>
+
+
 
 </div>

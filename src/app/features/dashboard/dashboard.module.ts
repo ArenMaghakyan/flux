@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { throwIfAlreadyLoaded } from '../../core/utils';
 import { SharedModule } from '../../shared/shared.module';
@@ -16,6 +18,8 @@ import { UserService } from './shared/services/user/user.service';
     DashboardRoutingModule,
     NgxDatatableModule,
     SharedModule,
+    NgbDatepickerModule,
+    ReactiveFormsModule,
   ],
   providers: [UserService],
 })

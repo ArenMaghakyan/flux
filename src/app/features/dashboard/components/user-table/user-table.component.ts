@@ -3,11 +3,14 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { appSettings } from '../../../../app.settings';
 import { MockService } from '../../../../core/services';
-import { IResponse, IUser } from '../../../../infrastructure/interface';
-import { UserService } from '../../shared/services/user/user.service';
 import { BroadcastService } from '../../../../core/services/broadcast/broadcast.service';
+import { RequiredValidator } from '../../../../core/validations/required.validator';
+import { IResponse, IUser } from '../../../../infrastructure/interface';
+import { UserModel } from '../../../../infrastructure/model/features/dashboard';
+import { UserService } from '../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-user-table',
@@ -16,8 +19,9 @@ import { BroadcastService } from '../../../../core/services/broadcast/broadcast.
 })
 
 export class UserTableComponent implements OnInit, OnDestroy {
+  public form: FormGroup;
   public editing: { [key: number]: boolean };
-  public userList: IUser[];
+  public userList: IUser[] = [];
   public isLoading = false;
   public selected = [];
 
@@ -25,6 +29,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   constructor(private toastService: ToastrService,
               private userService: UserService,
+              private fb: FormBuilder,
               private broadcastService: BroadcastService,
               private mockService: MockService) {
   }
@@ -34,6 +39,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.listenerInit();
     this.dataInit();
+    this.initForm();
   }
 
   ngOnDestroy() {
@@ -46,6 +52,14 @@ export class UserTableComponent implements OnInit, OnDestroy {
   private dataInit(): void {
     this.editing = {};
     this.getUsers();
+  }
+
+  private initForm(): void {
+    this.form = this.fb.group({
+      firstname: [null, [RequiredValidator.validate]],
+      lastname: [null, [RequiredValidator.validate]],
+      birthdate: [new Date(), [RequiredValidator.validate]],
+    });
   }
 
   private listenerInit(): void {
@@ -63,6 +77,10 @@ export class UserTableComponent implements OnInit, OnDestroy {
     this.editing[`${i}-${column}`] = true;
   }
 
+  public onDelete(): void {
+    this.removeBulk();
+  }
+
   public updateData(event, data: IUser, i: number, column: string): void {
     this.updateUser(data);
     this.editing[`${i}-${column}`] = false;
@@ -75,22 +93,26 @@ export class UserTableComponent implements OnInit, OnDestroy {
     this.selected.push(...selected);
   }
 
-  public onActivate(event): void {
-  }
-
-  public onRemove(): void {
-    this.selected = [];
+  public resetForm(): void {
+    this.form.reset();
   }
 
   // =============== API Calls ===============
 
-  private getUsers(): void {
+  private getUsers(withUpdate: boolean = false): void {
     this.isLoading = true;
     this.mockService.getData<IUser[]>('users')
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((res: IResponse<IUser[]>) => {
           if (res.status === appSettings.SUCCESS) {
-            this.userList = res.data;
+            if (this.userList && this.userList.length) {
+              this.userList = [...this.userList, ...res.data];
+            } else {
+              this.userList = [...res.data];
+            }
+            if (withUpdate) {
+              this.broadcastService.broadCastMessage<IUser[]>(this.userList);
+            }
             this.isLoading = false;
           }
         },
@@ -109,6 +131,47 @@ export class UserTableComponent implements OnInit, OnDestroy {
           }
         },
         (err) => this.toastService.error(err.error));
+  }
+
+  public addToTable() {
+    this.isLoading = true;
+    const dateString = this.dateConvert(this.form.get('birthdate').value);
+    const user = new UserModel({...this.form.value, birthdate: dateString});
+    this.userService.addUser(user)
+      .subscribe(
+        () => {
+          this.userList = [user];
+          this.getUsers(true);
+        },
+        (err) => {
+          this.toastService.error(err.error);
+          this.isLoading = false;
+        },
+      );
+  }
+
+  public removeBulk(): void {
+    this.isLoading = true;
+    const selectedIds = this.selected.map((i) => i.id);
+    this.userService.removeUsers(selectedIds)
+      .subscribe(
+        (res) => {
+          this.isLoading = true;
+          this.toastService.success('User successfully deleted');
+          this.userList = this.userList.filter((i) => !selectedIds.includes(i.id));
+          this.broadcastService.broadCastMessage<IUser[]>(this.userList);
+        },
+        (err) => {
+          this.toastService.error(err.error);
+          this.isLoading = false;
+        },
+      );
+  }
+
+// =============== Helper functions ===============
+
+  private dateConvert(date: { year: number, month: number, day: number }): string {
+    return new Date(date.year, date.month - 1, date.day).toUTCString();
   }
 
 }
