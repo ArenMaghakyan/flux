@@ -1,5 +1,10 @@
 {
   "compileOnSave": false,
+  "paths": {
+    "@app/*": ["src/app/infrastructure/*"],
+    "@core/*": ["src/app/core/*"],
+    "@shared/*": ["src/app/shared/*"]
+  },
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

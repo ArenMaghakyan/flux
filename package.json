@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-5100": "ng serve --port 5100",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
+    "@swimlane/ngx-datatable": "^16.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
@@ -42,6 +44,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
+    "rxjs-tslint-rules": "^4.30.0",
     "typescript": "~3.5.3"
   }
 }
